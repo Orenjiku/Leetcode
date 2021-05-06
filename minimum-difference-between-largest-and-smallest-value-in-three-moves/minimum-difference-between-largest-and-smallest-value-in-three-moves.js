@@ -4,12 +4,15 @@
  */
 var minDifference = function(nums) {
     nums.sort((a, b) => a - b);    
-    const recursive = (arr, count) => {
-        if (arr.length === 0 || arr.length === 1) return 0;
-        if (count === 0) return arr[arr.length - 1] - arr[0];
-        let left = recursive(arr.slice(1), count - 1);
-        let right = recursive(arr.slice(0, arr.length - 1), count - 1);
-        return Math.min(left, right);
+    const recursive = (arr, left, right, count, memo) => {
+        if (right <= left) return 0;
+        if (count === 0) {
+            memo[`${left}${right}`] = arr[right] - arr[left]; 
+            return arr[right] - arr[left];
+        }
+        let removeLeftNum = memo[`${left}${right}`] ? memo[`${left}${right}`] : recursive(arr, left + 1, right, count - 1, memo);
+        let removeRightNum = memo[`${left}${right}`] ? memo[`${left}${right}`] : recursive(arr, left, right - 1, count - 1, memo);
+        return Math.min(removeLeftNum, removeRightNum);
     }
-    return recursive(nums, 3)
+    return recursive(nums, 0, nums.length - 1, 3, {})
 };
