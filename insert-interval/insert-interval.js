@@ -4,7 +4,7 @@
  * @return {number[][]}
  */
 var insert = function(intervals, newInterval) {
-    if (intervals.length === 0) return [newInterval];
+    if (intervals.length === 0) return [[...newInterval]];
     
     let insertStart = false;
     let start = 0;
