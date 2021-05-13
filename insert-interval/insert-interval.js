@@ -4,34 +4,26 @@
  * @return {number[][]}
  */
 var insert = function(intervals, newInterval) {
-    if (newInterval[1] < intervals[0]?.[0]) {
-        intervals.unshift(newInterval);
-        return intervals;
-    }
-    if (newInterval[0] > intervals[intervals.length - 1]?.[1]) {
-        intervals.push(newInterval);
-        return intervals;
-    }
     if (intervals.length === 0) return [newInterval];
     
-    let addIn = false;
-    let startIdx = 0;
-    let endIdx = 0;
-    let min = Infinity;
-    let max = -Infinity;
+    let insertStart = false;
+    let start = 0;
+    let end = 0;
+    let min = newInterval[0];
+    let max = newInterval[1];
     for (let i = 0; i < intervals.length; i++) {
-        const leftNum = intervals[i][0];
-        const rightNum = intervals[i][1]
-        if (newInterval[0] <= rightNum && addIn === false) {
-            addIn = true;
-            startIdx = i;
-            min = Math.min(newInterval[0], leftNum);
+        if (newInterval[0] <= intervals[i][1] && insertStart === false) {
+            insertStart = true;
+            start = i;
+            min = Math.min(newInterval[0], intervals[i][0]);
         }
-        if (newInterval[1] >= leftNum) {
-            endIdx = i;
-            max = Math.max(newInterval[1], rightNum);
+        if (newInterval[1] >= intervals[i][0]) {
+            end = i;
+            max = Math.max(newInterval[1], intervals[i][1]);
         }
     }
-    intervals.splice(startIdx, endIdx - startIdx + 1, [min, max]);
-    return intervals
+    if (newInterval[1] < intervals[0][0]) intervals.unshift(newInterval);
+    else if (newInterval[0] > intervals[intervals.length - 1][1]) intervals.push(newInterval);
+    else intervals.splice(start, end - start + 1, [min, max]);
+    return intervals;
 };
