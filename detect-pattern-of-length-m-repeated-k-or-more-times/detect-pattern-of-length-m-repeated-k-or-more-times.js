@@ -5,15 +5,13 @@
  * @return {boolean}
  */
 var containsPattern = function(arr, m, k) {
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length - m; i++) {
         const pattern = arr.slice(i, i + m).join('');
         let count = 1;
         let j = i + m;
-        while (true) {
-            const nextPattern = arr.slice(j, j + m).join('');
-            if (pattern === nextPattern) count++;
-            else break;
-            if (count === k) return true;
+        while (arr.slice(j, j + m).join('') === pattern) {
+            count++;
+            if (count >= k) return true;
             j += m;
         }
     }
