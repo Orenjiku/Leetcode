@@ -4,12 +4,11 @@
  * @return {string}
  */
 var gcdOfStrings = function(str1, str2) {
-    const divident = str1.length >= str2.length ? str1 : str2;  
-    const divisor = str1.length < str2.length ? str1 : str2;
-    for (let i = divisor.length; i >= 1; i--) {
-        const pattern = divisor.slice(0, i);
+    if (str1.length < str2.length) gcdOfStrings(str2, str1);
+    for (let i = str2.length; i >= 1; i--) {
+        const pattern = str2.slice(0, i);
         const reg = new RegExp(`^(${pattern})+$`);
-        if (reg.test(divident) && reg.test(divisor)) return pattern;
+        if (reg.test(str1) && reg.test(str2)) return pattern;
     }
     return '';
 };
