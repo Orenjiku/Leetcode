@@ -3,14 +3,11 @@
  * @return {string}
  */
 var thousandSeparator = function(n) {
-    let count = 0;
-    let arr = n.toString().split('');
-    for (let i = arr.length - 1; i >= 0; i--) {
-        count++;
-        if (count === 3 && i !== 0) {
-            arr.splice(i, 0, '.');
-            count = 0;
-        }
+    const nums = [];
+    while (n > 0) {
+        if (n < 1000) nums.push(`${(n % 1000).toString()}`);
+        else nums.push(`.${(n % 1000).toString().padStart(3, '0')}`);
+        n = Math.floor(n/1000);
     }
-    return arr.join('');
+    return nums.reverse().join('') || "0";
 };
