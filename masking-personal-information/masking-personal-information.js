@@ -12,6 +12,6 @@ var maskPII = function(s) {
         const phoneNumbers = s.match(/\d/g);
         const phoneLen = phoneNumbers.length
         const lastFour = phoneNumbers.slice(phoneLen - 4, phoneLen).join('');
-        return (phoneLen === 10) ? `***-***-${lastFour}` : `+${'*'.repeat(phoneNumbers.length - 10)}-***-***-${lastFour}`;
+        return (phoneLen === 10) ? `***-***-${lastFour}` : `+${'*'.repeat(phoneLen - 10)}-***-***-${lastFour}`;
     }
 };
