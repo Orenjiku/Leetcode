@@ -4,15 +4,11 @@
  */
 var summaryRanges = function(nums) {
     const ranges = [];
-    let str = `${nums[0]}`;
+    let start = nums[0]
     for (let i = 0; i < nums.length; i++) {
-        if (nums[i] + 1 !== nums[i + 1] && parseInt(str, 10) === nums[i]) {
-            ranges.push(str);
-            str = `${nums[i + 1]}`;
-        } else if (nums[i] + 1 !== nums[i + 1]) {
-            str += `->${nums[i]}`;
-            ranges.push(str);
-            str = `${nums[i + 1]}`;
+        if (nums[i] + 1 !== nums[i + 1]) {
+            start === nums[i] ? ranges.push(nums[i].toString()) : ranges.push(`${start}->${nums[i]}`); 
+            start = nums[i + 1];
         }
     }
     return ranges;
