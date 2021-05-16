@@ -12,7 +12,6 @@ var checkStraightLine = function(coordinates) {
     const comparisonSlopeAndIntercept = getSlopeAndIntercept(coordinates[0], coordinates[1]);
     for (let i = 2; i < coordinates.length; i++) {
         const slopeAndIntercept = getSlopeAndIntercept(coordinates[i], coordinates[0]);
-        console.log(comparisonSlopeAndIntercept, slopeAndIntercept)
         if (comparisonSlopeAndIntercept[0] !== slopeAndIntercept[0] || comparisonSlopeAndIntercept[1] !== slopeAndIntercept[1]) return false;
     }
     return true;
