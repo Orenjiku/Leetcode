@@ -4,13 +4,11 @@
  * @return {string}
  */
 var licenseKeyFormatting = function(s, k) {
-    const arr = s.match(/[a-zA-Z0-9]/g) || [];
-    let str = '';
-    let count = 0;
-    for (let i = arr.length - 1; i >= 0; i--) {
-        str += arr[i].toUpperCase();
-        count++;
-        if (count % k === 0 && i !== 0) str += '-'
+    const arr = s.replace(/-/g, '').split('');
+    let i = arr.length - k;
+    while (i > 0) {
+        arr.splice(i, 0, '-');
+        i -= k;
     }
-    return str.split('').reverse().join('');
+    return arr.join('').toUpperCase();
 };
