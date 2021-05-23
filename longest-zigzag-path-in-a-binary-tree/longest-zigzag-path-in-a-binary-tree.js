@@ -13,13 +13,14 @@
 var longestZigZag = function(root) {
     let maxCount = 0;
     const traverse = (node) => {
-        if (!node) return [0, 0, 0];
+        if (!node) return [0, 0];
         let left = traverse(node.left);
         let right = traverse(node.right);
         let leftCount = node.left ? left[1] + 1 : 0;
         let rightCount = node.right ? right[0] + 1 : 0;
-        maxCount = Math.max(leftCount, rightCount, maxCount);
-        return [leftCount, rightCount, maxCount];
+        maxCount = Math.max(maxCount, leftCount, rightCount);
+        return [leftCount, rightCount];
     }
-    return traverse(root)[2];
+    traverse(root);
+    return maxCount;
 };
