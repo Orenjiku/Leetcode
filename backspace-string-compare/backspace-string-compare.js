@@ -6,7 +6,6 @@
 var backspaceCompare = function(s, t) {
     const helper = (str) => {
         const arr = str.match(/[a-z]+#*/g);
-        console.log(arr)
         let finalStr = '';
         for (let i = 0; i < arr.length; i++) {
             finalStr += arr[i];
