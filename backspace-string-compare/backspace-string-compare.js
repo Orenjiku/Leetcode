@@ -5,15 +5,12 @@
  */
 var backspaceCompare = function(s, t) {
     const helper = (str) => {
-        const arr = str.match(/[a-z]+#*/g);
-        let finalStr = '';
-        for (let i = 0; i < arr.length; i++) {
-            finalStr += arr[i];
-            const hashIdx = finalStr.indexOf('#');
-            const hashCount = finalStr.length - hashIdx;
-            finalStr = hashIdx === -1 ? finalStr : finalStr.slice(0, hashIdx - hashCount < 0 ? 0 : hashIdx - hashCount);
+        let result = [];
+        for (let i = 0; i < str.length; i++) {
+            if (str[i] !== '#') result.push(str[i]);
+            else result.pop();
         }
-        return finalStr;
+        return result.join('')
     }
     return helper(s) === helper(t);
 };
