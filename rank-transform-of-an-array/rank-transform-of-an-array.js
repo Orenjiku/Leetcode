@@ -4,16 +4,16 @@
  */
 var arrayRankTransform = function(arr) {
     const sortedArr = [...arr].sort((a, b) => a - b);
-    let curMin = sortedArr[0];
+    let curMin = -Infinity;
     let curRank = 1;
     const map = sortedArr.reduce((acc, cur) => {
         if (cur > curMin) {
-            curRank += 1;
             acc[cur] = curRank;
             curMin = cur;
+            curRank++;
         }
         return acc;
-    }, {[sortedArr[0]]: curRank});
+    }, {});
     
     return arr.map(num => map[num]);
 };
