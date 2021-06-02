@@ -17,6 +17,5 @@ var floodFill = function(image, sr, sc, newColor) {
         
     }
     traverse(sr, sc, image, new Set(), image[sr][sc], newColor);
-    console.log(image)
     return image;
 };
