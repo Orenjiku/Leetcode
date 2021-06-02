@@ -5,20 +5,14 @@
  */
 var canFormArray = function(arr, pieces) {
     const map = pieces.reduce((acc, cur, i) => {
-        acc[cur[0]] = i;
+        acc[cur[0]] = cur;
         return acc;
     }, {})
     
-    const idxArr = [];
-    arr.forEach(num => {
-        if (map.hasOwnProperty(num)) {
-            idxArr.push(map[num])
-        }
-    });
-    
-    const answer = idxArr.map(i => pieces[i]).reduce((acc, cur) => {
-        acc = acc.concat(cur);
+    const answer = arr.reduce((acc, cur) => {
+        if (map.hasOwnProperty(cur)) acc = acc.concat(map[cur]);
         return acc;
     }, [])
-    return arr.join('') === answer.join('');
+
+    return arr.reduce((acc, cur, i) => cur !== answer[i] ? false : acc, true)
 };
