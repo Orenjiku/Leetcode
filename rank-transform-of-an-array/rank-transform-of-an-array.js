@@ -3,17 +3,17 @@
  * @return {number[]}
  */
 var arrayRankTransform = function(arr) {
-    const temp = [...arr].sort((a, b) => a - b);
-    let curMin = temp[0];
+    const sortedArr = [...arr].sort((a, b) => a - b);
+    let curMin = sortedArr[0];
     let curRank = 1;
-    const map = temp.reduce((acc, cur) => {
+    const map = sortedArr.reduce((acc, cur) => {
         if (cur > curMin) {
             curRank += 1;
             acc[cur] = curRank;
             curMin = cur;
         }
         return acc;
-    }, {[temp[0]]: curRank});
+    }, {[sortedArr[0]]: curRank});
     
     return arr.map(num => map[num]);
 };
