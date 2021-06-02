@@ -11,20 +11,8 @@
  * @return {string}
  */
 var tree2str = function(root) {
-    let str = '';
-    const traverse = (node, isRightBranch) => {
-        if (!node && isRightBranch) {
-            str += '()'
-            return
-        } else if (!node && !isRightBranch) {
-            return;
-        }
-        str += '(' + node.val;
-        traverse(node.left, node.right);
-        traverse(node.right, node.right);
-        str += ')'
-    }
-    traverse(root, false);
-    str = str.slice(1, -1)
-    return str;
+    if (!root) return '';
+    if (!root.left && !root.right) return root.val + '';
+    if (!root.right) return root.val + '(' + tree2str(root.left) + ')';
+    return root.val + '(' + tree2str(root.left) + ')' + '(' + tree2str(root.right) + ')';
 };
