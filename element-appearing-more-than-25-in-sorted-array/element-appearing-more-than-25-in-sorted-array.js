@@ -3,9 +3,15 @@
  * @return {number}
  */
 var findSpecialInteger = function(arr) {
-    const map = {};
+    let count = 0;
+    let curInt = arr[0]
     for (let i = 0; i < arr.length; i++) {
-        map[arr[i]] = (map[arr[i]] || 0) + 1;
-        if (map[arr[i]] / arr.length > 0.25) return arr[i];
+        if (arr[i] === curInt) {
+            count += 1;
+            if (count / arr.length > 0.25) return arr[i];
+        } else {
+            curInt = arr[i];
+            count = 1;
+        }
     }
 };
