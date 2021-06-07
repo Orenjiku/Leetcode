@@ -7,7 +7,6 @@ var sumEvenAfterQueries = function(nums, queries) {
     let even = nums.reduce((acc, cur) => acc += cur % 2 === 0 ? cur : 0, 0);
     
     const answer = [];
-    
     for (let i = 0; i < queries.length; i++) {
         const sum = nums[queries[i][1]] + queries[i][0];
         if (sum % 2 === 0) {
