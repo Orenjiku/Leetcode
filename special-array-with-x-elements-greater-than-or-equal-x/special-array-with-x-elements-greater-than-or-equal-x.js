@@ -6,8 +6,8 @@ var specialArray = function(nums) {
     nums.sort((a, b) => a - b);
     let prevMin = 0;
     for (let i = 0; i < nums.length; i++) {
-        if (nums.slice(i, nums.length).length <= nums[i] && nums.slice(i, nums.length).length > prevMin) {
-            return nums.slice(i, nums.length).length;
+        if (nums.length - i <= nums[i] && nums.length - i > prevMin) {
+            return nums.length - i;
         }
         prevMin = nums[i];
     }
