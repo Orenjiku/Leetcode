@@ -4,8 +4,12 @@
  * @return {boolean}
  */
 var kLengthApart = function(nums, k) {
-    return [...nums.join('').matchAll(/1/g)].map(num => num.index).reduce((acc, cur, i, arr) => {
-        if (arr[i - 1] === undefined) return true;
-        else return cur - arr[i - 1] - 1 < k ? false : acc;
-    }, true);
+    let prevIdx = nums.indexOf(1);
+    for (let i = prevIdx + 1; i < nums.length; i++) {
+        if (nums[i] === 1) {
+            if (i - prevIdx - 1 < k) return false;
+            prevIdx = i;
+        }
+    }
+    return true;
 };
