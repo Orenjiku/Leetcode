@@ -8,8 +8,8 @@ var findLucky = function(arr) {
         acc[cur] = (acc[cur] || 0) + 1;
         return acc;
     }, {});
-    for (let i = 0; i < arr.length; i++) {
-        if (map[arr[i]] === arr[i]) max = Math.max(arr[i], max);
-    }
+    Object.keys(map).forEach(num => {
+        if (Number(num) === map[num]) max = Math.max(max, map[num]);
+    })
     return max;
 };
