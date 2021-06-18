@@ -4,18 +4,14 @@
  */
 var minAddToMakeValid = function(s) {
     let count = 0;
-    const map = {'(': 0, ')': 0}
+    let balance = 0;
     for (let i = 0; i < s.length; i++) {
-        if (s[i] === '(') {
-            map['(']++;
-        } else if (s[i] === ')' && map['('] <= map[')']) {
-            map['(']++;
-            map[')']++;
+        if (s[i] === '(') balance++;
+        if (s[i] === ')') balance--;
+        if (balance === -1) {
             count++;
-        } else {
-            map[')']++;
+            balance++;
         }
     }
-    count += map['('] - map[')'];
-    return count;
+    return count + balance;
 };
