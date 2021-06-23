@@ -12,34 +12,21 @@
  * @return {ListNode}
  */
 var reverseBetween = function(head, left, right) {
-    let nodeIdx = 1;
-    let p = head;
-    let lp = left === 1 && null;
-    let rp;
-    while (p !== null) {
-        if (nodeIdx === left - 1) lp = p;
-        if (nodeIdx === right) rp = p.next;
-        p = p.next;
-        nodeIdx++;
+    const before = new ListNode(0, head);
+    let prev = before;
+
+    while (--left) {
+        prev = prev.next;
+        --right;
     }
-    
-    let cur = head;
-    let prev = rp;
-    nodeIdx = 1;
-    while (nodeIdx <= right) {
-        if (nodeIdx >= left && nodeIdx <= right) {
-            let temp = cur.next;
-            cur.next = prev;
-            prev = cur;
-            cur = temp;
-            if (nodeIdx === right) {
-                if (lp === null) return prev;
-                else lp.next = prev;
-            }
-        } else {
-            cur = cur.next;
-        }
-        nodeIdx++;
+
+    let cur = prev.next;
+    while (--right) {
+        let next = cur.next;
+        cur.next = next.next;
+        next.next = prev.next;
+        prev.next = next;
     }
-    return head;
-};
+
+    return before.next;
+}
