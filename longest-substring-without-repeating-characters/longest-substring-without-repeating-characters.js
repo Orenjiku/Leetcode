@@ -13,7 +13,6 @@ var lengthOfLongestSubstring = function(s) {
         count++;  
         while (map[s[end]] > 1) {
             map[s[start]]--;
-            if (map[s[start]] === 0) delete map[s[start]];
             start++;
             count--;
         }
