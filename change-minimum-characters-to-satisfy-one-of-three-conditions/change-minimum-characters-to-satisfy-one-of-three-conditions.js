@@ -23,12 +23,10 @@ var minCharacters = function(a, b) {
             arrA[i] += arrA[i - 1];
             arrB[i] += arrB[i - 1];
         }
-        console.log(arrA)
-        console.log(arrB)
+
         if (i < 25) {
-            min = Math.min(min, b.length - arrB[i] + arrA[i], a.length - arrA[i] + arrB[i]);
+            min = Math.min(min, a.length - arrA[i] + arrB[i], b.length - arrB[i] + arrA[i]);
         }
-        console.log(min)
     }
     return min;
 };
