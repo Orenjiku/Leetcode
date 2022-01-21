@@ -11,20 +11,16 @@ var canCompleteCircuit = function(gas, cost) {
     let start = -1;
     let curGas = 0;
     let count = 0;
-    while (curStation !== start && count < gas.length) {
+    while (curStation !== start) {
         curGas += gas[curStation];
         if (curGas < cost[curStation]) {
             curGas = 0;
             start = -1;
         } else {
             curGas -= cost[curStation];
-            if (start === -1) {
-                start = curStation;
-                count = 0;
-            }
+            if (start === -1) start = curStation;
         }
         curStation = (curStation + 1) % gas.length;
-        count++;
     }
     return start;
 };
