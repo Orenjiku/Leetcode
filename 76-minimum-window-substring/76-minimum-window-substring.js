@@ -10,29 +10,28 @@ var minWindow = function(s, t) {
     }, {});
     let minStr = '';
     let minLen = Infinity;
+    let i = 0;
     let j = 0;
-    for (let i = 0; i < s.length; i++) {
-        const cLeft = s[i];
-        while (j < s.length && !isValid(map)) {
-            const cRight = s[j];
-            if (cRight in map) map[cRight]--;
-            j++;
-        }
-        if (isValid(map)) {
+    let count = Object.keys(map).length;
+    while (j < s.length) {
+        const cRight = s[j];
+        if (cRight in map) map[cRight]--;
+        if (map[cRight] === 0) count--;
+        j++;
+        
+        while (count === 0) {
+            const cLeft = s[i];
             const str = s.slice(i, j);
             if (str.length < minLen) {
                 minLen = str.length;
                 minStr = str;
-            }   
+            }
+            if (cLeft in map) {
+                if (map[cLeft] === 0) count++;
+                map[cLeft]++;
+            }
+            i++
         }
-        if (cLeft in map) map[cLeft]++;
     }
     return minStr;
 };
-
-const isValid = (map) => {
-    for (let letter in map) {
-        if (map[letter] > 0) return false;
-    }
-     return true;
-}
