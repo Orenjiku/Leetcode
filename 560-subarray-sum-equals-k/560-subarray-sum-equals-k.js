@@ -9,9 +9,7 @@ var subarraySum = function(nums, k) {
     const map = {0: 1};
     for (let i = 0; i < nums.length; i++) {
         sum += nums[i];
-        if (map[sum - k]) {
-            result += map[sum - k];
-        }
+        if (map[sum - k]) result += map[sum - k];
         map[sum] = (map[sum] || 0) + 1;
     }
     return result;
