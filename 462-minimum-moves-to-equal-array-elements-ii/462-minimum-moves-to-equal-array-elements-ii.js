@@ -18,3 +18,17 @@ var minMoves2 = function(nums) {
     }
     return Math.min(...dp);
 };
+
+// using median trick
+// var minMoves2 = function(nums) {
+// 	   nums.sort((a,b)=>a-b);
+//     const mid = Math.floor(nums.length/2);
+//     const median = nums[mid];
+//     let counter = 0;
+//     for(let i=0;i<nums.length;i++){
+//         const number = nums[i];
+//         const dif = Math.abs(number-median);
+//         counter = counter + dif
+//     }
+//     return counter
+// };
