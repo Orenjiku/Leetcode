@@ -3,9 +3,11 @@
  * @return {number}
  */
 var majorityElement = function(nums) {
-    const map = {};
-    for (let i = 0; i < nums.length; i++) {
-        map[nums[i]] = (map[nums[i]] || 0) + 1; 
-        if (map[nums[i]] > Math.floor(nums.length / 2)) return nums[i];
+    let count = 0;
+    let candidate = null;
+    for (const num of nums) {
+        if (count === 0) candidate = num;
+        count += (num === candidate) ? 1 : -1;
     }
+    return candidate
 };
