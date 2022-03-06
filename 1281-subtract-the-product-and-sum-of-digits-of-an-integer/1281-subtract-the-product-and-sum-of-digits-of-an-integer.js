@@ -3,13 +3,8 @@
  * @return {number}
  */
 var subtractProductAndSum = function(n) {
-    let product = 1;
-    let sum = 0;
-    while (n !== 0) {
-        const remainder = n % 10;
-        product *= remainder;
-        sum += remainder;
-        n = Math.floor(n / 10)
-    }
+    const nArr = n.toString().split('');
+    const product = nArr.reduce((acc, cur) => acc * Number(cur), 1);
+    const sum = nArr.reduce((acc, cur) => acc + Number(cur), 0);
     return product - sum;
 };
