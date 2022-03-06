@@ -23,7 +23,6 @@ const findCost = (mm, ss, startAt, moveCost, pushCost) => {
         if (timeStr[i] !== startAt.toString()) totalCost += moveCost;
         totalCost += pushCost
         startAt = timeStr[i];
-        console.log(timeStr, i, totalCost)
     }
     return totalCost;
 }
