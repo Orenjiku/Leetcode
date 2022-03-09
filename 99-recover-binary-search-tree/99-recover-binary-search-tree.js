@@ -11,21 +11,21 @@
  * @return {void} Do not return anything, modify root in-place instead.
  */
 var recoverTree = function(root) {
-    let vals = [];
-    const go = (node, mode) => {
-        if (!node) return;
-        go(node.left, mode);
-        if (mode === 'get') {
-            vals.push(node.val);
-        } else {
-            node.val = vals.shift();
-        }
-        go(node.right, mode);
-    };
+    let nodeList = [];
+    
+    inOrder(root, nodeList);
+    const sortList = nodeList.map(node => node.val).sort((a, b) => a - b);
 
-    go(root, 'get');
-    vals.sort((a,b) => a - b);
-    go(root, 'set');
+    for (let i = 0; i < nodeList.length; i++) {
+        nodeList[i].val = sortList[i]
+    }
 
     return root;
 };
+
+const inOrder = (node, nodeList) => {
+    if (!node) return;
+    inOrder(node.left, nodeList);
+    nodeList.push(node);
+    inOrder(node.right, nodeList);
+}
