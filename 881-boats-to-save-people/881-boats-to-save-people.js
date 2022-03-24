@@ -9,14 +9,11 @@ var numRescueBoats = function(people, limit) {
     let rt = people.length - 1;
     let count = 0;
     while (lt <= rt) {
-        if (people[lt] + people[rt] > limit) {
-            count++;
-            rt--;
-        } else if (people[lt] + people[rt] <= limit) {
-            count++;
+        count++;
+        if (people[lt] + people[rt] <= limit) {
             lt++;
-            rt--;
         }
+        rt--;
     }
     return count;
 };
