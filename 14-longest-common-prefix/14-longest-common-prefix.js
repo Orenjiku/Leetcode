@@ -3,10 +3,11 @@
  * @return {string}
  */
 var longestCommonPrefix = function(strs) {
+    let longestPrefix = '';
+    
     const trie = new Trie();
     trie.build(strs);
-
-    let longestPrefix = '';
+    
     let curNode = trie.root;
     while (Object.keys(curNode.children).length === 1 && curNode.end === false) {
         const letter = Object.keys(curNode.children)[0];
@@ -22,7 +23,7 @@ class TrieNode {
         this.children = {};
         this.end = false;
     }
-}
+};
 
 class Trie {
     constructor() {
@@ -44,4 +45,4 @@ class Trie {
         }
         curNode.end = true;
     }
-}
+};
