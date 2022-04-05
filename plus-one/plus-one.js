@@ -12,9 +12,7 @@ var plusOne = function(digits) {
         } else {
             digits[i] = 0;
             i--;
-            if (i === -1) {
-                digits.unshift(1);
-            }
+            if (i === -1) digits.unshift(1);
         }
     }
     return digits;
