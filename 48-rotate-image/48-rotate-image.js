@@ -6,25 +6,16 @@ var rotate = function(matrix) {
     let left = 0;
     let right = matrix[0].length - 1;
     while (left < right) {
-        let top = left;
-        let bottom = right;
-        
-        let i = 0;
-        while (i < right - left) {
+        for (let i = 0; i < right - left; i++) {
+            let top = left;
+            let bot = right;
             let topLeft = matrix[top][left + i];
-            
-            matrix[top][left + i] = matrix[bottom - i][left];
-            
-            matrix[bottom - i][left] = matrix[bottom][right - i];
-            
-            matrix[bottom][right - i] = matrix[top + i][right];
-            
+            matrix[top][left + i] = matrix[bot - i][left];
+            matrix[bot - i][left] = matrix[bot][right - i];
+            matrix[bot][right - i] = matrix[top + i][right];
             matrix[top + i][right] = topLeft;
-            
-            i++;
         }
         left++;
         right--;
     }
-    return matrix;
 };
