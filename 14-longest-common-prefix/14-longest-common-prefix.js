@@ -31,13 +31,17 @@ class Trie {
     
     build(array) {
         for (let i = 0; i < array.length; i++) {
-            let curNode = this.root;
-            for (let j = 0; j < array[i].length; j++) {
-                const char = array[i][j];
-                if (!curNode.children[char]) curNode.children[char] = new TrieNode(char);
-                curNode = curNode.children[char];
-            }
-            curNode.end = true;
+            this.insert(array[i]);
         }
+    }
+    
+    insert(string) {
+        let curNode = this.root;
+        for (let i = 0; i < string.length; i++) {
+            const char = string[i];
+            if (!curNode.children[char]) curNode.children[char] = new TrieNode(char);
+            curNode = curNode.children[char];
+        }
+        curNode.end = true;
     }
 }
