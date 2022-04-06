@@ -24,7 +24,7 @@ var removeNthFromEnd = function(head, n) {
     if (left === head) {
         return head.next;
     } else {
-        prevLeft.next = left.next !== null ? left.next : null;
+        prevLeft.next = left.next;
         return head;   
     }
 };
