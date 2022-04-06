@@ -10,24 +10,28 @@
  * @return {boolean}
  */
 var isPalindrome = function(head) {
-    let str1 = '';
-    let str2 = '';
-    let node = head;
-    while (node !== null) {
-        str1 += node.val;
-        node = node.next;
+    if(!head) return head;
+    
+    let fast = head;
+    let slow = head;
+    while(fast && fast.next){
+        slow = slow.next;
+        fast = fast.next.next;
     }
     
-    let reverseNode = reverseLinkedList(head);
-    while (reverseNode !== null) {
-        str2 += reverseNode.val;
-        reverseNode = reverseNode.next
+    let rev = reverseLinkedList(slow);
+    while(head != null && rev != null){
+        if(head.val !== rev.val){
+            return false;
+        }
+        head = head.next;
+        rev = rev.next;
     }
-    return str1 === str2;
+    return true
 };
 
 const reverseLinkedList = (head) => {
-    if (head.next === null) return head;
+    if (head === null || head.next === null) return head;
     const tmp = reverseLinkedList(head.next);
     head.next.next = head;
     head.next = null;
