@@ -3,18 +3,10 @@
  * @return {string}
  */
 var longestCommonPrefix = function(strs) {
-    let longestPrefix = '';
-    
     const trie = new Trie();
     trie.build(strs);
     
-    let curNode = trie.root;
-    while (Object.keys(curNode.children).length === 1 && curNode.end === false) {
-        const letter = Object.keys(curNode.children)[0];
-        longestPrefix += letter;
-        curNode = curNode.children[letter]
-    }
-    return longestPrefix;
+    return trie.getLongestPrefix();
 };
 
 class TrieNode {
@@ -44,5 +36,16 @@ class Trie {
             curNode = curNode.children[char];
         }
         curNode.end = true;
+    }
+    
+    getLongestPrefix() {
+        let longestPrefix = '';
+        let curNode = this.root;
+        while (Object.keys(curNode.children).length === 1 && curNode.end === false) {
+            const letter = Object.keys(curNode.children)[0];
+            longestPrefix += letter;
+            curNode = curNode.children[letter]
+        }
+        return longestPrefix;
     }
 };
