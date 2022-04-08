@@ -1,7 +1,7 @@
 
 var MedianFinder = function() {
-    this.maxHeap = new maxHeap();
-    this.minHeap = new minHeap();
+    this.maxHeap = new MaxHeap();
+    this.minHeap = new MinHeap();
 };
 
 /** 
@@ -31,33 +31,9 @@ MedianFinder.prototype.findMedian = function() {
     } 
 };
 
-class maxHeap {
+class Heap {
     constructor() {
         this.heap = [];
-    }
-    
-    siftUp(curIdx, heap) {
-        let parentIdx = Math.floor((curIdx - 1) / 2);
-        while (heap[curIdx] > heap[parentIdx] && curIdx > 0) {
-            [heap[curIdx], heap[parentIdx]] = [heap[parentIdx], heap[curIdx]];
-            curIdx = parentIdx;
-            parentIdx = Math.floor((curIdx - 1) / 2);
-        }
-    }
-    
-    siftDown(curIdx, heap) {
-        let childOneIdx = 2 * curIdx + 1;
-        while (childOneIdx < heap.length) {
-            const childTwoIdx = 2 * curIdx + 2;
-            const nextIdx = childTwoIdx < heap.length && heap[childTwoIdx] > heap[childOneIdx] ? childTwoIdx : childOneIdx;
-            if (heap[nextIdx] > heap[curIdx]) {
-                [heap[nextIdx], heap[curIdx]] = [heap[curIdx], heap[nextIdx]];
-                curIdx = nextIdx;
-                childOneIdx = 2 * curIdx + 1;
-            } else {
-                break;
-            }
-        }
     }
     
     insert(value) {
@@ -82,11 +58,33 @@ class maxHeap {
     }
 }
 
-class minHeap {
-    constructor() {
-        this.heap = [];
+class MaxHeap extends Heap {
+    siftUp(curIdx, heap) {
+        let parentIdx = Math.floor((curIdx - 1) / 2);
+        while (heap[curIdx] > heap[parentIdx] && curIdx > 0) {
+            [heap[curIdx], heap[parentIdx]] = [heap[parentIdx], heap[curIdx]];
+            curIdx = parentIdx;
+            parentIdx = Math.floor((curIdx - 1) / 2);
+        }
     }
     
+    siftDown(curIdx, heap) {
+        let childOneIdx = 2 * curIdx + 1;
+        while (childOneIdx < heap.length) {
+            const childTwoIdx = 2 * curIdx + 2;
+            const nextIdx = childTwoIdx < heap.length && heap[childTwoIdx] > heap[childOneIdx] ? childTwoIdx : childOneIdx;
+            if (heap[nextIdx] > heap[curIdx]) {
+                [heap[nextIdx], heap[curIdx]] = [heap[curIdx], heap[nextIdx]];
+                curIdx = nextIdx;
+                childOneIdx = 2 * curIdx + 1;
+            } else {
+                break;
+            }
+        }
+    }
+}
+
+class MinHeap extends Heap {
     siftUp(curIdx, heap) {
         let parentIdx = Math.floor((curIdx - 1) / 2);
         while (heap[curIdx] < heap[parentIdx] && curIdx > 0) {
@@ -109,27 +107,6 @@ class minHeap {
                 break;
             }
         }
-    }
-    
-    insert(value) {
-        this.heap.push(value);
-        this.siftUp(this.heap.length - 1, this.heap);
-    }
-    
-    remove() {
-        const lastIdx = this.heap.length - 1;
-        [this.heap[0], this.heap[lastIdx]] = [this.heap[lastIdx], this.heap[0]];
-        const value = this.heap.pop();
-        this.siftDown(0, this.heap);
-        return value;
-    }
-    
-    peek() {
-        return this.heap[0];
-    }
-    
-    length() {
-        return this.heap.length;
     }
 }
 /** 
