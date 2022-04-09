@@ -30,7 +30,6 @@ class MaxHeap {
     insert(value, heap) {
         heap.push(value);
         this.siftUp(value, heap.length - 1, heap);
-        // if (heap.length > this.k) 
     }
 
     remove() {
