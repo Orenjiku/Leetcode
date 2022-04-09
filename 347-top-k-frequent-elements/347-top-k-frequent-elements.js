@@ -5,7 +5,6 @@
  */
 var topKFrequent = function(nums, k) {
     const maxHeap = new MaxHeap(nums, k);
-    console.log(maxHeap)
     return maxHeap.getKFreq(k);
 };
 
@@ -22,20 +21,35 @@ class MaxHeap {
     build(array) {
         const heap = [];
         Object.keys(this.freqMap).forEach(value => {
-            this.insert(value, heap);
+            this.insert(value, heap, this.freqMap);
         });
         return heap;
     }
     
-    insert(value, heap) {
+    insert(value, heap, freqMap) {
         heap.push(value);
         this.siftUp(value, heap.length - 1, heap);
+        if (heap.length > this.k) {
+            this.removeMinFreqChild(heap, freqMap);
+        }
+    }
+    
+    removeMinFreqChild(heap, freqMap) {
+        let minFreq = Infinity;
+        let minIdx;
+        for (let i = 0; i < heap.length; i++) {
+            if (freqMap[heap[i]] < minFreq) {
+                minFreq = freqMap[heap[i]];
+                minIdx = i;
+            }
+        }
+        this.remove(minIdx, heap, freqMap);
     }
 
-    remove() {
-        [this.heap[0], this.heap[this.heap.length - 1]] = [this.heap[this.heap.length - 1], this.heap[0]];
-        const value = this.heap.pop();
-        this.siftDown(0, this.heap, this.freqMap);
+    remove(idx, heap, freqMap) {
+        [heap[idx], heap[heap.length - 1]] = [heap[heap.length - 1], heap[idx]];
+        const value = heap.pop();
+        this.siftDown(idx, heap, freqMap);
         return value;
     }
     
@@ -66,7 +80,7 @@ class MaxHeap {
     getKFreq(k) {
         let array = [];
         for (let i = 0; i < k; i++) {
-            array.push(this.remove());
+            array.push(this.remove(0, this.heap, this.freqMap));
         }
         return array;
     }
