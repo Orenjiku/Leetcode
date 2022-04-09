@@ -11,7 +11,7 @@ var topKFrequent = function(nums, k) {
 
 class MaxHeap {
     constructor(array, k) {
-        this.k = 2;
+        this.k = k;
         this.freqMap = array.reduce((acc, cur) => {
             acc[cur] = (acc[cur] || 0) + 1;
             return acc;
@@ -30,6 +30,7 @@ class MaxHeap {
     insert(value, heap) {
         heap.push(value);
         this.siftUp(value, heap.length - 1, heap);
+        // if (heap.length > this.k) 
     }
 
     remove() {
