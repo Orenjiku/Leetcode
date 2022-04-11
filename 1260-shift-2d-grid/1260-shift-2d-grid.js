@@ -8,10 +8,10 @@ var shiftGrid = function(grid, k) {
     k = k % arr.length;
     arr = [...arr.slice(arr.length - k), ...arr.slice(0, arr.length - k)];
     
-    for (let i = 0; i < arr.length; i++) {
-        let row = Math.floor(i / grid[0].length);
-        let col = i % grid[0].length;
-        grid[row][col] = arr[i];
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+      grid[i][j] = arr[i * grid[i].length + j];
     }
+  }
     return grid;
 };
