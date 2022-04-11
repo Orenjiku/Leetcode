@@ -4,12 +4,9 @@
  * @return {number[][]}
  */
 var shiftGrid = function(grid, k) {
-    let arr = [];
-    for (let i = 0; i < grid.length; i++) {
-        arr = arr.concat(grid[i]);
-    }
-    const leftSide = arr.splice(0, arr.length - (k % arr.length));
-    arr = arr.concat(...leftSide);
+    let arr = grid.flat();
+    k = k % arr.length;
+    arr = [...arr.slice(arr.length - k), ...arr.slice(0, arr.length - k)];
     
     for (let i = 0; i < arr.length; i++) {
         let row = Math.floor(i / grid[0].length);
