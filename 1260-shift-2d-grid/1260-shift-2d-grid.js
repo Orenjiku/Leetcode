@@ -4,7 +4,7 @@
  * @return {number[][]}
  */
 var shiftGrid = function(grid, k) {
-    let arr = grid.flat();
+    let arr = [].concat(...grid);
     k = k % arr.length;
     arr = [...arr.slice(arr.length - k), ...arr.slice(0, arr.length - k)];
     
