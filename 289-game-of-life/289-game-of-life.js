@@ -3,7 +3,6 @@
  * @return {void} Do not return anything, modify board in-place instead.
  */
 var gameOfLife = function(board) {
-    const newBoard = Array.from(new Array(board.length), () => new Array(board[0].length).fill(0));
     const map = {};
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board[i].length; j++) {
