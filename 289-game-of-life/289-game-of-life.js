@@ -22,13 +22,13 @@ var gameOfLife = function(board) {
 }
 
 const countNeighbors = (i, j, board) => {
-    let tl = board[i - 1]?.[j - 1] ? board[i - 1][j - 1] : 0;
-    let t = board[i - 1]?.[j] ? board[i - 1][j] : 0;
-    let tr = board[i - 1]?.[j + 1] ? board[i - 1][j + 1] : 0;
-    let l = board[i][j - 1] ? board[i][j - 1] : 0;
-    let r = board[i][j + 1] ? board[i][j + 1] : 0;
-    let bl = board[i + 1]?.[j - 1] ? board[i + 1][j - 1] : 0;
-    let b = board[i + 1]?.[j] ? board[i + 1][j] : 0;
-    let br = board[i + 1]?.[j + 1] ? board[i + 1][j + 1] : 0;
-    return tl + t + tr + l + r + bl + b + br;
+    let tl = board[i - 1]?.[j - 1];
+    let t = board[i - 1]?.[j];
+    let tr = board[i - 1]?.[j + 1];
+    let l = board[i][j - 1];
+    let r = board[i][j + 1];
+    let bl = board[i + 1]?.[j - 1];
+    let b = board[i + 1]?.[j];
+    let br = board[i + 1]?.[j + 1];
+    return (tl || 0) + (t || 0) + (tr || 0) + (l || 0) + (r || 0) + (bl || 0) + (b || 0) + (br || 0);
 } 
