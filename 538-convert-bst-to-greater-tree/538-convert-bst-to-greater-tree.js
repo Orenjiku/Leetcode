@@ -11,23 +11,18 @@
  * @return {TreeNode}
  */
 var convertBST = function(root) {
-    const total = sumBSTNodes(root);
-    traverse(root, [total]);
+    let sum = 0;
+    
+    const traverse = (node) => {
+        if (node !== null) {
+            traverse(node.right);
+            sum += node.val;
+            node.val = sum;
+            traverse(node.left);
+        }
+        return node;
+    }
+    
+    traverse(root);
     return root;
 };
-
-const sumBSTNodes = (node) => {
-    if (node === null) return 0;
-    const left = sumBSTNodes(node.left);
-    const right = sumBSTNodes(node.right);
-    return node.val + left + right;
-}
-
-const traverse = (node, arr) => {
-    if (node === null) return;
-    traverse(node.left, arr);
-    const nodeVal = node.val;
-    node.val = arr[0];
-    arr[0] -= nodeVal;
-    traverse(node.right, arr);
-}
