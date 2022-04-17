@@ -11,21 +11,18 @@
  * @return {TreeNode}
  */
 var increasingBST = function(root) {
-    const arr = []
-    traverse(root, arr);
-    let cur = new TreeNode(arr[0]);
-    const ans = cur;
-    for (let i = 1; i < arr.length; i++) {
-        const node = new TreeNode(arr[i])
-        cur.right = node;
+    let cur = new TreeNode(0);
+    const result = cur;
+    
+    const traverse = (node) => {
+        if (node === null) return;
+        traverse(node.left);
+        node.left = null;
+        cur.right = node
         cur = node;
+        traverse(node.right);
     }
-    return ans;
+    
+    traverse(root, cur);
+    return result.right;
 };
-
-const traverse = (node, arr) => {
-    if (node === null) return;
-    traverse(node.left, arr);
-    arr.push(node.val)
-    traverse(node.right, arr);
-}
