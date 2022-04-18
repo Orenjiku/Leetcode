@@ -19,11 +19,7 @@ var evalRPN = function(tokens) {
                 result = firstNum * secondNum;
             } else if (char === '/') {
                 result = firstNum / secondNum;
-                if (result > 0) {
-                    result = Math.floor(result);
-                } else {
-                    result = Math.ceil(result);
-                }
+                result = result > 0 ? Math.floor(result) : Math.ceil(result);
             }
             stack.push(result)
         }
