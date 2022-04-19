@@ -18,7 +18,6 @@ const traverse = (node) => {
     if (node === null) return {length: 0, isBalanced: true};
     const left = traverse(node.left);
     const right = traverse(node.right);
-    const length = Math.max(left.length, right.length) + 1;
     const isBalanced = left.isBalanced && right.isBalanced && Math.abs(left.length - right.length) <= 1;
-    return {length, isBalanced}
+    return {length: Math.max(left.length, right.length) + 1, isBalanced}
 }
