@@ -11,13 +11,12 @@
  * @return {number}
  */
 var goodNodes = function(root) {
-    let count = 0;
     const traverse = (root, max = -Infinity) => {
-        if (root === null) return;
-        if (root.val >= max) count++;
-        traverse(root.left, Math.max(max, root.val));
-        traverse(root.right, Math.max(max, root.val));
+        if (root === null) return 0;
+        let result = root.val >= max ? 1 : 0;
+        result += traverse(root.left, Math.max(max, root.val));
+        result += traverse(root.right, Math.max(max, root.val));
+        return result
     }
-    traverse(root);
-    return count;
+    return traverse(root);
 };
