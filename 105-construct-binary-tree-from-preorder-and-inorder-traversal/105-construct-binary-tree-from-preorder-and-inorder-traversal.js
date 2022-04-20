@@ -12,13 +12,13 @@
  * @return {TreeNode}
  */
 var buildTree = function(preorder, inorder) {
-    const traverse = (preIdx, inStart, inEnd) => {
-        if (preIdx > preorder.length - 1 || inStart > inEnd) return null;
-        const root = new TreeNode(preorder[preIdx]);
-        const inIdx = inorder.indexOf(preorder[preIdx]);
-        root.left = traverse(preIdx + 1, inStart, inIdx - 1);
-        root.right = traverse(preIdx + inIdx - inStart + 1, inIdx + 1, inEnd);
-        return root;
+    const traverse = (i, preorder, inorder) => {
+        if (inorder.length === 0) return null;
+        const node = new TreeNode(preorder[i]);
+        const idx = inorder.findIndex(num => num === node.val);
+        node.left = traverse(i + 1, preorder, inorder.slice(0, idx));
+        node.right = traverse(i + idx + 1, preorder, inorder.slice(idx + 1, inorder.length));
+        return node;
     }
-    return traverse(0, 0, inorder.length - 1);
+    return traverse(0, preorder, inorder);
 };
