@@ -22,4 +22,4 @@ var longestConsecutive = function(nums) {
         }
     }
     return count;
-};
+}
