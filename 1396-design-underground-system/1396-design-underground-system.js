@@ -28,8 +28,8 @@ UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
     if (!this.stations[startStation].hasOwnProperty(stationName)) {
         this.stations[startStation] = {...this.stations[startStation], [stationName]: {total: t - startTime, count: 1}};
     } else {
-        this.stations[startStation][stationName].total += t - startTime;
-        this.stations[startStation][stationName].count += 1;
+        this.stations[startStation][stationName]['total'] += t - startTime;
+        this.stations[startStation][stationName]['count'] += 1;
     }
     delete this.customers[id];
 };
@@ -40,7 +40,7 @@ UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
  * @return {number}
  */
 UndergroundSystem.prototype.getAverageTime = function(startStation, endStation) {
-    return this.stations[startStation][endStation].total / this.stations[startStation][endStation].count;
+    return this.stations[startStation][endStation]['total'] / this.stations[startStation][endStation]['count'];
 };
 
 /** 
