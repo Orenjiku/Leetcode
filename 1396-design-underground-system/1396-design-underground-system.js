@@ -1,10 +1,9 @@
 
 var UndergroundSystem = function() {
     //{id: {stationName, startTime}}
+    //{startStation: {endStation: {total, count}}
     this.customers = {};
-    this.stations = {};
-    //{startStation: {endStation: [startTime1 - endTime1, startTime2 - endTime2, ...]}
-    
+    this.stations = {};    
 };
 
 /** 
@@ -14,7 +13,7 @@ var UndergroundSystem = function() {
  * @return {void}
  */
 UndergroundSystem.prototype.checkIn = function(id, stationName, t) {
-    this.customers[id] = this.customers[id] || {startStation: stationName, startTime: t};
+    this.customers[id] = {startStation: stationName, startTime: t};
     this.stations[stationName] = this.stations[stationName] || {};
 };
 
@@ -27,9 +26,10 @@ UndergroundSystem.prototype.checkIn = function(id, stationName, t) {
 UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
     const {startStation, startTime} = this.customers[id];
     if (!this.stations[startStation].hasOwnProperty(stationName)) {
-        this.stations[startStation] = {...this.stations[startStation], [stationName]: [t - startTime]};
+        this.stations[startStation] = {...this.stations[startStation], [stationName]: {total: t - startTime, count: 1}};
     } else {
-        this.stations[startStation][stationName].push(t - startTime);
+        this.stations[startStation][stationName].total += t - startTime;
+        this.stations[startStation][stationName].count += 1;
     }
     delete this.customers[id];
 };
@@ -40,10 +40,7 @@ UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
  * @return {number}
  */
 UndergroundSystem.prototype.getAverageTime = function(startStation, endStation) {
-    const travelTimes = this.stations[startStation][endStation];
-    return travelTimes.reduce((acc, cur) => {
-        return acc + cur; 
-    }, 0) / travelTimes.length;
+    return this.stations[startStation][endStation].total / this.stations[startStation][endStation].count;
 };
 
 /** 
