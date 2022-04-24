@@ -26,11 +26,10 @@ UndergroundSystem.prototype.checkIn = function(id, stationName, t) {
 UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
     const {startStation, startTime} = this.customers[id];
     if (!this.stations[startStation].hasOwnProperty(stationName)) {
-        this.stations[startStation] = {...this.stations[startStation], [stationName]: {total: t - startTime, count: 1}};
-    } else {
-        this.stations[startStation][stationName].total += t - startTime;
-        this.stations[startStation][stationName].count += 1;
-    }
+        this.stations[startStation] = {...this.stations[startStation], [stationName]: {total: 0, count: 0}};
+    } 
+    this.stations[startStation][stationName].total += t - startTime;
+    this.stations[startStation][stationName].count += 1;
     delete this.customers[id];
 };
 
