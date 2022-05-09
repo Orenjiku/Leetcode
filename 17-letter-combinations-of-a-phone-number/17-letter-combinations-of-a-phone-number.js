@@ -15,18 +15,16 @@ var letterCombinations = function(digits) {
         '8': ['t', 'u', 'v'],
         '9': ['w', 'x', 'y', 'z']
     }
-    dfs(0, [], digits, phone, res)
+    dfs(0, '', digits, phone, res)
     return res;
 };
 
 const dfs = (i, combo, digits, phone, res) => {
     if (combo.length === digits.length) {
-        res.push(combo.join(''));
+        res.push(combo);
         return;
     }
     for (const letter of phone[digits[i]]) {
-        combo.push(letter);
-        dfs(i + 1, combo, digits, phone, res);
-        combo.pop();
+        dfs(i + 1, combo + letter, digits, phone, res);
     }
 }
