@@ -8,7 +8,7 @@ var find132pattern = function(nums) {
     for (let i = nums.length - 1; i >= 0; i--) {
         if (nums[i] < secondMax) return true
         while (stack.length > 0 && nums[i] > stack[stack.length - 1]) {
-            secondMax = stack.pop()
+            secondMax = Math.max(secondMax, stack.pop())
         }
         stack.push(nums[i])
     }
