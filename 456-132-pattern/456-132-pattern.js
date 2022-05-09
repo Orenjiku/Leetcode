@@ -4,11 +4,12 @@
  */
 var find132pattern = function(nums) {
     let stack = []
-    let secondMax = -Infinity
+    //stack contains secondElement
+    let thirdElement = -Infinity
     for (let i = nums.length - 1; i >= 0; i--) {
-        if (nums[i] < secondMax) return true
+        if (nums[i] < thirdElement) return true
         while (stack.length > 0 && nums[i] > stack[stack.length - 1]) {
-            secondMax = Math.max(secondMax, stack.pop())
+            thirdElement = stack.pop()
         }
         stack.push(nums[i])
     }
