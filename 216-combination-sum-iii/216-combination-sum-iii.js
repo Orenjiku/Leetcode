@@ -17,7 +17,7 @@ const getCombo = (k, n, idx, sum, combo, res) => {
     }
     for (let i = idx; i < 9; i++) {
         const curNum = i + 1;
-        const newSum = sum + i + 1;
+        const newSum = sum + curNum;
         combo.push(curNum);
         if (combo.length <= k && newSum <= n) getCombo(k, n, i + 1, newSum, combo, res);
         combo.pop();
