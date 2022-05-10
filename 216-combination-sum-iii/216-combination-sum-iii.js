@@ -12,7 +12,7 @@ var combinationSum3 = function(k, n) {
 const getCombo = (k, n, idx, sum, combo, res) => {
     if (sum > n || combo.length > k) return;
     if (sum === n && combo.length === k) {
-        res.push([...combo]);
+        res.push(combo);
         return;
     }
     if (combo.length <= k && sum < n) {
@@ -20,5 +20,4 @@ const getCombo = (k, n, idx, sum, combo, res) => {
             getCombo(k, n, i + 1, sum + i + 1, [...combo, i + 1], res);
         }
     }
-
 }
