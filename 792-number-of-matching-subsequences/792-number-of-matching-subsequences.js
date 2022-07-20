@@ -29,15 +29,17 @@ const binarySearch = (target, arr) => {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] > target) return arr[i]
     }
-    // let i = 0;
-    // let j = arr.length - 1;
-    // while (i <= j) {
-    //     const mid = Math.floor((i + j) / 2);
-    //     if (arr[mid] > target) {
-    //         return arr[mid];
-    //     } else {
-    //         i = mid + 1;
-    //     }
-    // }
+    let i = 0;
+    let j = arr.length - 1;
+    while (i <= j) {
+        const mid = Math.floor((i + j) / 2);
+        if (arr[mid - 1] > target) {
+            j = mid - 1;
+        } else if (arr[mid] > target) {
+            return arr[mid];
+        } else {
+            i = mid + 1;
+        }
+    }
     return -1;
 }
