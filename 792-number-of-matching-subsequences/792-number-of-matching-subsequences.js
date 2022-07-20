@@ -26,9 +26,6 @@ var numMatchingSubseq = function(s, words) {
 };
 
 const binarySearch = (target, arr) => {
-    // for (let i = 0; i < arr.length; i++) {
-    //     if (arr[i] > target) return arr[i]
-    // }
     let i = 0;
     let j = arr.length - 1;
     while (i <= j) {
