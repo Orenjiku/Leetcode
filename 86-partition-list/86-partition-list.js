@@ -25,7 +25,7 @@ var partition = function(head, x) {
         }
         head = head.next;
     }
-    highNode.next = null;
     lowNode.next = highStartNode.next;
+    highNode.next = null;
     return lowStartNode.next;
 };
