@@ -17,12 +17,10 @@ const lowestCommonAncestor = (root, p, q) => {
 };
 
 const traverse = (root, p, q) => {
-    if (root === null) return {isFound: false, LCA: null};
+    if (root === null) return {count: 0, LCA: null};
     const left = traverse(root.left, p, q);
     const right = traverse(root.right, p, q);
-    const rootMatch = root === p || root === q;
-    const rootIsLCA = left.isFound && right.isFound && left.LCA === null && right.LCA === null;
-    const rootIsDescendantItself = rootMatch && (left.isFound || right.isFound);
-    if (rootIsLCA || rootIsDescendantItself) return {isFound: true, LCA: root};
-    return {isFound: left.isFound || right.isFound || rootMatch, LCA: left.LCA || right.LCA}
+    const count = left.count + right.count + ((root === p || root === q) ? 1 : 0);
+    const LCA = count === 2 && !left.LCA && !right.LCA ? root : left.LCA || right.LCA;
+    return {count, LCA};
 }
