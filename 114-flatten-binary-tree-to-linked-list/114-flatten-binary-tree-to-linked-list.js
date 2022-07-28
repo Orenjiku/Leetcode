@@ -12,7 +12,7 @@
 
 
 var flatten = function(root) {
-    if (!root) return;
+    if (!root) return null;
     const tempLeft = root.left;
     const tempRight = root.right;
     
@@ -22,7 +22,8 @@ var flatten = function(root) {
     flatten(tempRight);
     
     root.right = tempLeft;
+    
     let cur = root;
-    while (cur.right !== null) cur = cur.right;
+    while (cur.right) cur = cur.right;
     cur.right = tempRight;
 };
