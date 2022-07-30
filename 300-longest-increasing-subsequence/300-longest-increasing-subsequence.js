@@ -8,7 +8,7 @@ var lengthOfLIS = function(nums) {
         if (nums[i] > result[result.length - 1]) {
             result.push(nums[i]);
         } else {
-            result[binarySearch(nums[i], result)] = nums[i]
+            binarySearch(nums[i], result)
         }
     }
     return result.length;
@@ -25,5 +25,5 @@ const binarySearch = (target, array) => {
             left = mid + 1;
         }
     }
-    return right;
+    array[right] = target;
 }
