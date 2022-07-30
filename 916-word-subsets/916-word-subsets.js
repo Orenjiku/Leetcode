@@ -15,15 +15,16 @@ var wordSubsets = function(words1, words2) {
     
     const result = [];
     for (const word of words1) {
+        let validWord = true;
         const charMap1 = {};
         for (const char of word) {
-            charMap1[char] = (charMap1[char] || 0) + 1;
+            if (char in charMap2) {
+                charMap1[char] = (charMap1[char] || 0) + 1;
+            }
         }
-        let validWord = true;
+        
         for (const char in charMap2) {
-            if (charMap2[char] <= charMap1[char]) {
-                continue;
-            } else {
+            if (!(char in charMap1) || charMap1[char] < charMap2[char]) {
                 validWord = false;
                 break;
             }
@@ -33,7 +34,3 @@ var wordSubsets = function(words1, words2) {
     
     return result;
 };
-
-const mapCharFromWord = (word, charMap) => {
-
-}
