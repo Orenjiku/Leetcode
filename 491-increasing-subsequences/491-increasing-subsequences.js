@@ -13,10 +13,8 @@ const dfs = (idx, curArr, nums, result) => {
     
     const seen = new Set();
     for (let i = idx; i < nums.length; i++) {
-        if (seen.has(nums[i])) continue;
-        if (curArr.length === 0 || nums[i] >= curArr[curArr.length - 1]) {
-            seen.add(nums[i])
-            dfs(i + 1, [...curArr, nums[i]], nums, result);
-        }
+        if (seen.has(nums[i]) || (curArr.length > 0 && nums[i] < curArr[curArr.length - 1])) continue;
+        seen.add(nums[i])
+        dfs(i + 1, [...curArr, nums[i]], nums, result);
     }
 }
