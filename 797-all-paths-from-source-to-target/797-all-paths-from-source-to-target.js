@@ -3,9 +3,8 @@
  * @return {number[][]}
  */
 var allPathsSourceTarget = function(graph) {
-    const visited = new Set();
     const result = [];
-    dfs(0, visited, result, graph);
+    dfs(0,  new Set(), result, graph);
     return result;
 };
 
