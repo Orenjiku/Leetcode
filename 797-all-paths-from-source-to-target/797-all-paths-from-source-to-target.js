@@ -10,10 +10,9 @@ var allPathsSourceTarget = function(graph) {
 
 const dfs = (u, visited, result, graph) => {
     visited.add(u);
+    if (u === graph.length - 1) result.push([...visited]);
     for (let v of graph[u]) {
-        if (visited.has(v)) continue;
         dfs(v, visited, result, graph);
     }
-    if (u === graph.length - 1) result.push([...visited]);
     visited.delete(u);
 }
