@@ -8,8 +8,9 @@ var findCircleNum = function(isConnected) {
 
     let count = isConnected.length;
     for (let i = 0; i < isConnected.length; i++) {
-        for (let j = 0; j < isConnected[i].length; j++) {
-            if (isConnected[i][j] === 1) count -= union(i, j, parent, rank);
+        for (let j = i + 1; j < isConnected[i].length; j++) {
+            if (isConnected[i][j] === 0) continue;
+            count -= union(i, j, parent, rank);
         }
     }
     
