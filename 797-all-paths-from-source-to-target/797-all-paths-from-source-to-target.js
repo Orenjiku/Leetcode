@@ -4,15 +4,17 @@
  */
 var allPathsSourceTarget = function(graph) {
     const result = [];
-    dfs(0,  new Set(), result, graph);
+    dfs(0, [0], result, graph);
     return result;
 };
 
-const dfs = (u, visited, result, graph) => {
-    visited.add(u);
-    if (u === graph.length - 1) result.push([...visited]);
-    for (let v of graph[u]) {
-        dfs(v, visited, result, graph);
+const dfs = (u, path, result, graph) => {
+    if (path[path.length - 1] === graph.length - 1) {
+        result.push(path);
+        return;
     }
-    visited.delete(u);
+    
+    for (const v of graph[u]) {
+        dfs(v, [...path, v], result, graph);
+    }
 }
