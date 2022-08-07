@@ -5,60 +5,44 @@
  * @param {number} destination
  * @return {boolean}
  */
-var validPath = function(n, edges, source, destination) {
-    if(source === destination) {
-        return true;
+var validPath = function(n, edges, start, end) {
+    function Node(val) {
+        this.neighs = new Set()
+        this.visited = false
+    }
+    Node.table = new Array(n)
+    
+    for (let i = 0; i < n; i++) {
+        Node.table[i] = new Node(i)
     }
     
-    const getNeighbors = (index) => {
-        const result = [];
-        
-        // nodes could be connected in both directions
-        for (const [a, b] of edges) {
-            if(a === index) {
-                result.push(b)
-            }
-            
-            if(b === index) {
-                result.push(a)
-            }
-        }
-            
-        return result;
+    for (const edge of edges.values()) {
+        const [fromVal, toVal] = edge
+        const fromNode = Node.table[fromVal]
+        const toNode = Node.table[toVal]
+        fromNode.neighs.add(toNode)
+        toNode.neighs.add(fromNode)
     }
     
-    const bfs = (start) => {
-        // queue the first item
-        const queue = [start];
-        // keep track of the visited nodes
-        const visited = new Set();
-        // add current node
-        visited.add(start);
+    
+    const startNode = Node.table[start]
+    const endNode = Node.table[end]
+    function canReach(node) {
+        node.visited = true
+        if (node === endNode)   return true
         
-        while(queue.length > 0) {
-            const node = queue.shift();
-            // we found a path
-            if(node === destination) {
-                return true;
-            }
-            
-            // build the graph on the fly
-            for(neighbor of getNeighbors(node)) {
-                // skip visited node
-                if(visited.has(neighbor)) {
-                    continue;
+        for (const neigh of node.neighs.values()) {
+            if (!neigh.visited) {
+                if (canReach(neigh)) {
+                    return true
                 }
-                
-                // enqueue the node and mark it as visited
-                queue.push(neighbor);
-                visited.add(neighbor)
             }
         }
         
-        // if we make it here there was no path
         return false
     }
     
-    // start from source
-    return bfs(source);
+    
+    let result = canReach(startNode)
+    return result
 };
