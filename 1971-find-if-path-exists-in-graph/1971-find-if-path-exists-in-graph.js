@@ -5,44 +5,30 @@
  * @param {number} destination
  * @return {boolean}
  */
-var validPath = function(n, edges, start, end) {
-    function Node(val) {
-        this.neighs = new Set()
-        this.visited = false
+var validPath = function(n, edges, source, destination) {
+    const parent = Array.from({length: n}, (_, i) => i);
+    const rank = new Array(n).fill(0);
+    for (const [u, v] of edges) {
+        union(u, v, parent, rank);
     }
-    Node.table = new Array(n)
-    
-    for (let i = 0; i < n; i++) {
-        Node.table[i] = new Node(i)
-    }
-    
-    for (const edge of edges.values()) {
-        const [fromVal, toVal] = edge
-        const fromNode = Node.table[fromVal]
-        const toNode = Node.table[toVal]
-        fromNode.neighs.add(toNode)
-        toNode.neighs.add(fromNode)
-    }
-    
-    
-    const startNode = Node.table[start]
-    const endNode = Node.table[end]
-    function canReach(node) {
-        node.visited = true
-        if (node === endNode)   return true
-        
-        for (const neigh of node.neighs.values()) {
-            if (!neigh.visited) {
-                if (canReach(neigh)) {
-                    return true
-                }
-            }
-        }
-        
-        return false
-    }
-    
-    
-    let result = canReach(startNode)
-    return result
+    return find(source, parent) === find(destination, parent);
 };
+
+const union = (c1, c2, parent, rank) => {
+    const p1 = find(c1, parent);
+    const p2 = find(c2, parent);
+    if (p1 === p2) return;
+    if (rank[p1] < rank[p2]) {
+        parent[p1] = p2;
+    } else if (rank[p1] > rank[p2]) {
+        parent[p2] = p1;
+    } else {
+        parent[p1] = p2;
+        rank[p2]++;
+    }
+}
+
+const find = (c, parent) => {
+    if (parent[c] !== c) parent[c] = find(parent[c], parent);
+    return parent[c];
+}
