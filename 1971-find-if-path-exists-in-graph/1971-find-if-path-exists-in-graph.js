@@ -6,29 +6,59 @@
  * @return {boolean}
  */
 var validPath = function(n, edges, source, destination) {
-    const parent = Array.from({length: n}, (_, i) => i);
-    const rank = new Array(n).fill(0);
-    for (const [u, v] of edges) {
-        union(u, v, parent, rank);
+    if(source === destination) {
+        return true;
     }
-    return find(source, parent) === find(destination, parent);
+    
+    const getNeighbors = (index) => {
+        const result = [];
+        
+        // nodes could be connected in both directions
+        for (const [a, b] of edges) {
+            if(a === index) {
+                result.push(b)
+            }
+            
+            if(b === index) {
+                result.push(a)
+            }
+        }
+            
+        return result;
+    }
+    
+    const bfs = (start) => {
+        // queue the first item
+        const queue = [start];
+        // keep track of the visited nodes
+        const visited = new Set();
+        // add current node
+        visited.add(start);
+        
+        while(queue.length > 0) {
+            const node = queue.shift();
+            // we found a path
+            if(node === destination) {
+                return true;
+            }
+            
+            // build the graph on the fly
+            for(neighbor of getNeighbors(node)) {
+                // skip visited node
+                if(visited.has(neighbor)) {
+                    continue;
+                }
+                
+                // enqueue the node and mark it as visited
+                queue.push(neighbor);
+                visited.add(neighbor)
+            }
+        }
+        
+        // if we make it here there was no path
+        return false
+    }
+    
+    // start from source
+    return bfs(source);
 };
-
-const union = (c1, c2, parent, rank) => {
-    const p1 = find(c1, parent);
-    const p2 = find(c2, parent);
-    if (p1 === p2) return;
-    if (rank[p1] < rank[p2]) {
-        parent[p1] = p2;
-    } else if (rank[p1] > rank[p2]) {
-        parent[p2] = p1;
-    } else {
-        parent[p1] = p2;
-        rank[p2]++;
-    }
-}
-
-const find = (c, parent) => {
-    if (parent[c] !== c) parent[c] = find(parent[c], parent);
-    return parent[c];
-}
