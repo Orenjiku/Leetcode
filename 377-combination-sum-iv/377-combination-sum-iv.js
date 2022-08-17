@@ -6,17 +6,18 @@
 var combinationSum4 = function(nums, target) {
 	const memo = {};
 
-	function combs(remain){
-		if(remain === 0) return 1
-		if(remain in memo) return memo[remain];
+	function dfs(sum){
+		if(sum === target) return 1;
+		if(sum in memo) return memo[sum];
 
 		let result = 0
-		for(let num of nums){
-			if(remain >= 0)  result += combs(remain - num)
+		for (let num of nums){
+			if (sum <= target)  result += dfs(sum + num)
 		}
-		memo[remain] = result;
+        
+		memo[sum] = result;
 		return result
 	}
 
-	return combs(target)
+	return dfs(0)
 };
